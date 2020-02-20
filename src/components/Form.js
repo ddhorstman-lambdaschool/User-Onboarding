@@ -2,7 +2,8 @@ import React from "react";
 import { withFormik, Form, Field } from "formik";
 import "./Form.scss";
 import * as yup from "yup";
-function UserForm(props) {
+function UserForm({ errors }) {
+    if(Object.entries(errors).length !== 0) console.error(errors);
     return (
         <Form className="user-form">
             <h3>New User Sign-Up</h3>
@@ -35,6 +36,22 @@ export default withFormik({
         acceptedTOS: false
     }),
     validationSchema: yup.object().shape({
-        name: yup.string().required()
+        name: yup
+            .string()
+            .required("Please enter your name"),
+        email: yup
+            .string()
+            .email("Please enter a valid email address")
+            .required("Please enter your email address"),
+        password: yup
+            .string()
+            .required("Please enter a password"),
+        confirmPassword: yup
+            .string()
+            .required("Please confirm your password")
+            .oneOf([yup.ref('password')], "Passwords do not match."),
+        acceptedTOS: yup
+        .boolean()
+        .oneOf([true],"You must accept the terms of service.")
     })
 })(UserForm);
