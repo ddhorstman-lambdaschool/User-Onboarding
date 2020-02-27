@@ -1,0 +1,21 @@
+.user-form {
+    display: flex;
+    width: 400px;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+    & > * {
+        margin: 5px;
+    }
+    input {
+        margin-left: 5px;
+    }
+    .error {
+        border: 2px solid red;
+    }
+    .error-message {
+        margin: 0px;
+        text-align: right;
+        color: red;
+    }
+
+}
